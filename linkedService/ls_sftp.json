@@ -1,0 +1,44 @@
+{
+	"name": "ls_sftp",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"ls_p_host": {
+				"type": "String"
+			},
+			"ls_p_port": {
+				"type": "int"
+			},
+			"ls_p_username": {
+				"type": "string"
+			},
+			"ls_p_akv_password_secret_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Sftp",
+		"typeProperties": {
+			"host": "@{linkedService().ls_p_host}",
+			"port": "@linkedService().ls_p_port",
+			"skipHostKeyValidation": true,
+			"authenticationType": "Basic",
+			"userName": "@{linkedService().ls_p_username}",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_keyvault_ingestion",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": {
+					"value": "@linkedService().ls_p_akv_password_secret_name",
+					"type": "Expression"
+				}
+			}
+		},
+		"connectVia": {
+			"referenceName": "shir-mbb-onprem",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

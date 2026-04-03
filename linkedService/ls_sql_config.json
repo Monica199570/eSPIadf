@@ -1,0 +1,15 @@
+{
+	"name": "ls_sql_config",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "mbb-sql-data-sb-sea-02.database.windows.net",
+			"database": "mbb-sqldb-data-sb-sea-01",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SystemAssignedManagedIdentity"
+		}
+	}
+}

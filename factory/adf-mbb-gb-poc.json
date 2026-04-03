@@ -1,0 +1,9 @@
+{
+	"name": "adf-mbb-gb-poc",
+	"location": "malaysiawest",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "cacb0904-951b-44d9-92c5-1524995808ad",
+		"tenantId": "3f2820b3-3cc5-4b5f-a767-ca9cfa3f3268"
+	}
+}

@@ -1,0 +1,6 @@
+{
+	"name": "shir-mbb-onprem",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}

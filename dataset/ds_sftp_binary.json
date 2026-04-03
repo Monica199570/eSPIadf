@@ -1,0 +1,55 @@
+{
+	"name": "ds_sftp_binary",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sftp",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"ls_p_host": "@dataset().ds_p_host",
+				"ls_p_port": "@dataset().ds_p_port",
+				"ls_p_username": "@dataset().ds_p_username",
+				"ls_p_akv_password_secret_name": "@dataset().ds_p_akv_password_secret_name"
+			}
+		},
+		"parameters": {
+			"ds_p_host": {
+				"type": "string"
+			},
+			"ds_p_port": {
+				"type": "int"
+			},
+			"ds_p_username": {
+				"type": "string"
+			},
+			"ds_p_akv_password_secret_name": {
+				"type": "string"
+			},
+			"ds_p_folder_path": {
+				"type": "string"
+			},
+			"ds_p_file_name": {
+				"type": "string",
+				"defaultValue": "''"
+			}
+		},
+		"folder": {
+			"name": "File Ingestion"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "SftpLocation",
+				"fileName": {
+					"value": "@dataset().ds_p_file_name",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().ds_p_folder_path",
+					"type": "Expression"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

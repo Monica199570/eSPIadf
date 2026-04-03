@@ -1,0 +1,112 @@
+{
+	"name": "pl_test",
+	"properties": {
+		"activities": [
+			{
+				"name": "CP_File_to_Landing",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "SftpReadSettings",
+							"recursive": false,
+							"deleteFilesAfterCompletion": false,
+							"disableChunking": false
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "PreserveHierarchy"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_sftp_binary",
+						"type": "DatasetReference",
+						"parameters": {
+							"ds_p_host": "10.0.1.4",
+							"ds_p_port": 22,
+							"ds_p_username": "sa-ods-user",
+							"ds_p_akv_password_secret_name": "kv-sftp-ods-password",
+							"ds_p_folder_path": "/u05/sas/redw/HOST/",
+							"ds_p_file_name": "employees_2026-03-20_000000.000000.dat"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adls_binary",
+						"type": "DatasetReference",
+						"parameters": {
+							"ds_p_storage_account_name": "stmbbgbpoc",
+							"ds_p_container": "landing",
+							"ds_p_directory": "/ods/testtingg/"
+						}
+					}
+				]
+			},
+			{
+				"name": "Get Metadata1",
+				"type": "GetMetadata",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_sftp_binary_folder",
+						"type": "DatasetReference",
+						"parameters": {
+							"ds_p_host": "10.0.1.4",
+							"ds_p_port": 22,
+							"ds_p_username": "sa-ods-user",
+							"ds_p_akv_password_secret_name": "kv-sftp-ods-password",
+							"ds_p_folder_path": "/u05/sas/redw/HOST/"
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "SftpReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false,
+						"disableChunking": false
+					},
+					"formatSettings": {
+						"type": "BinaryReadSettings"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-03-20T18:54:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

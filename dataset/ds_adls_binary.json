@@ -1,0 +1,42 @@
+{
+	"name": "ds_adls_binary",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"ls_p_storage_account_name": "@dataset().ds_p_storage_account_name"
+			}
+		},
+		"parameters": {
+			"ds_p_storage_account_name": {
+				"type": "string"
+			},
+			"ds_p_container": {
+				"type": "string"
+			},
+			"ds_p_directory": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "File Ingestion"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@dataset().ds_p_directory",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().ds_p_container",
+					"type": "Expression"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
